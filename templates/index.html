@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Meeting - Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --primary-light: #333333;
+            --primary-lighter: #4d4d4d;
+            --bg: #f5f5f5;
+            --text: #1a1a1a;
+            --text-light: #666666;
+            --border: #e0e0e0;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text);
+        }
+        
+        .login-container {
+            background: var(--white);
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 48px 32px;
+            text-align: center;
+            border-bottom: 1px solid var(--primary-light);
+        }
+        
+        .login-header .icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        .login-header h1 {
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .login-header p {
+            opacity: 0.7;
+            font-size: 13px;
+            font-weight: 400;
+        }
+        
+        .login-body {
+            padding: 32px;
+        }
+        
+        .alert {
+            padding: 12px 16px;
+            border-radius: 2px;
+            margin-bottom: 24px;
+            display: none;
+            font-size: 13px;
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c33;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-group label i {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1px var(--primary);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .login-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        .login-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 16px;
+        }
+        
+        .feature i {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .feature span {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-light);
+            display: block;
+        }
+        
+        .demo-accounts {
+            margin-top: 32px;
+            padding: 20px;
+            background: var(--bg);
+            border-radius: 2px;
+            font-size: 12px;
+        }
+        
+        .demo-accounts h3 {
+            margin-bottom: 12px;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .demo-account {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-light);
+        }
+        
+        .demo-account:last-child {
+            border-bottom: none;
+        }
+        
+        .demo-account strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="icon">
+                <i class="fas fa-microphone"></i>
+            </div>
+            <h1>INTELLIGENT MEETING</h1>
+            <p>AI-Powered Meeting Assistant</p>
+        </div>
+        
+        <div class="login-body">
+            <div id="alert" class="alert"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i>
+                        Username
+                    </label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
+                </button>
+            </form>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-microphone-lines"></i>
+                    <span>Auto Transcription</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-brain"></i>
+                    <span>AI Summarization</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-list-check"></i>
+                    <span>Action Items</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-chart-simple"></i>
+                    <span>Analytics</span>
+                </div>
+            </div>
+            
+            <div class="demo-accounts">
+                <h3>Demo Accounts</h3>
+                <div class="demo-account">
+                    <span><strong>admin</strong> / admin123</span>
+                    <span>Administrator</span>
+                </div>
+                <div class="demo-account">
+                    <span><strong>user1</strong> / user123</span>
+                    <span>John Doe</span>
+                </div>
+                <div class="demo-account">
+                    <span><strong>user2</strong> / user123</span>
+                    <span>Jane Smith</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const alert = document.getElementById('alert');
+            
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    window.location.href = '/dashboard';
+                } else {
+                    alert.textContent = data.message;
+                    alert.style.display = 'block';
+                }
+            } catch (error) {
+                alert.textContent = 'Login failed. Please try again.';
+                alert.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
